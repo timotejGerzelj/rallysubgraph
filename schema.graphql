@@ -1,0 +1,43 @@
+type handleAudioChatChangedState @entity(immutable: true) {
+  id: Bytes!
+  audio_event_id: Bytes! # bytes32
+  new_state: Int! # uint8
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type handleEventUpdated @entity(immutable: true) {
+  id: Bytes!
+  audio_event_id: Bytes! # bytes32
+  start_at: BigInt! # uint256
+  created_at: BigInt! # uint256
+  cid_metadata: String! # string
+  current_state: Int! # uint8
+  is_indexed: Boolean! # bool
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type handleNewAudioChat @entity(immutable: true) {
+  id: Bytes!
+  audio_event_id: Bytes! # bytes32
+  start_at: BigInt! # uint256
+  created_at: BigInt! # uint256
+  cid_metadata: String! # string
+  current_state: Int! # uint8
+  is_indexed: Boolean! # bool
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type handleUpdateMetadataCID @entity(immutable: true) {
+  id: Bytes!
+  audio_event_id: Bytes! # bytes32
+  new_cid: String! # string
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}

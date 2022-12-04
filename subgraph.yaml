@@ -1,0 +1,32 @@
+specVersion: 0.0.5
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: RallyContract
+    network: mumbai
+    source:
+      address: "0xC9047698C519486106Cbabb160000e0f46FFd160"
+      abi: RallyContract
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - handleAudioChatChangedState
+        - handleEventUpdated
+        - handleNewAudioChat
+        - handleUpdateMetadataCID
+      abis:
+        - name: RallyContract
+          file: ./abis/RallyContract.json
+      eventHandlers:
+        - event: handleAudioChatChangedState(bytes32,uint8)
+          handler: handlehandleAudioChatChangedState
+        - event: handleEventUpdated(bytes32,uint256,uint256,string,uint8,bool)
+          handler: handlehandleEventUpdated
+        - event: handleNewAudioChat(bytes32,uint256,uint256,string,uint8,bool)
+          handler: handlehandleNewAudioChat
+        - event: handleUpdateMetadataCID(bytes32,string)
+          handler: handlehandleUpdateMetadataCID
+      file: ./src/rally-contract.ts
