@@ -48,7 +48,7 @@ export function handlehandleNewAudioChat(event: handleNewAudioChatEvent): void {
     newAudioChat.state = event.params.current_state
     newAudioChat.is_indexed = event.params.is_indexed
     newAudioChat.creator = event.params.creator
-
+    handleMetadata(newAudioChat.cid_metadata , event.params.audio_event_id)
     newAudioChat.save();      
 
     }
