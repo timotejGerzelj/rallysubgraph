@@ -1,32 +1,34 @@
 specVersion: 0.0.5
 schema:
   file: ./schema.graphql
+features:
+    - ipfsOnEthereumContracts
 dataSources:
   - kind: ethereum
     name: RallyContract
     network: mumbai
     source:
-      address: "0xC9047698C519486106Cbabb160000e0f46FFd160"
+      address: "0x479Dc3342fcb1785F2c8EDE3A5f0bfe62f26251c"
       abi: RallyContract
+      startBlock: 29641977 #29085137
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
       language: wasm/assemblyscript
       entities:
-        - handleAudioChatChangedState
-        - handleEventUpdated
-        - handleNewAudioChat
-        - handleUpdateMetadataCID
+        - AudioChats
+        - AccessControl
+        - Guild
       abis:
         - name: RallyContract
           file: ./abis/RallyContract.json
       eventHandlers:
-        - event: handleAudioChatChangedState(bytes32,uint8)
-          handler: handlehandleAudioChatChangedState
-        - event: handleEventUpdated(bytes32,uint256,uint256,string,uint8,bool)
-          handler: handlehandleEventUpdated
-        - event: handleNewAudioChat(bytes32,uint256,uint256,string,uint8,bool)
+        - event: handleNewAudioChat(bytes32,uint256,uint256,string,uint8,bool,address)
           handler: handlehandleNewAudioChat
-        - event: handleUpdateMetadataCID(bytes32,string)
-          handler: handlehandleUpdateMetadataCID
+        - event: handleAudioChatUpdated(bytes32,uint256,uint256,string,uint8,bool)
+          handler: handleAudioChatUpdated
+        - event: handleAudioChatChangedState(bytes32,uint8)
+          handler: handleAudioChatChangedState
+        - event: handleAudioChatDeleted(bytes32)
+          handler: handleAudioChatDeleted
       file: ./src/rally-contract.ts
