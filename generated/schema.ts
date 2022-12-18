@@ -87,13 +87,38 @@ export class AudioChat extends Entity {
     this.set("is_indexed", Value.fromBoolean(value));
   }
 
-  get creator(): Bytes {
+  get creator(): Bytes | null {
     let value = this.get("creator");
-    return value!.toBytes();
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toBytes();
+    }
   }
 
-  set creator(value: Bytes) {
-    this.set("creator", Value.fromBytes(value));
+  set creator(value: Bytes | null) {
+    if (!value) {
+      this.unset("creator");
+    } else {
+      this.set("creator", Value.fromBytes(<Bytes>value));
+    }
+  }
+
+  get metadata(): string | null {
+    let value = this.get("metadata");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set metadata(value: string | null) {
+    if (!value) {
+      this.unset("metadata");
+    } else {
+      this.set("metadata", Value.fromString(<string>value));
+    }
   }
 }
 

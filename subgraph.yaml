@@ -1,8 +1,6 @@
 specVersion: 0.0.5
 schema:
   file: ./schema.graphql
-features:
-    - ipfsOnEthereumContracts
 dataSources:
   - kind: ethereum
     name: RallyContract
@@ -16,19 +14,35 @@ dataSources:
       apiVersion: 0.0.7
       language: wasm/assemblyscript
       entities:
-        - AudioChats
-        - AccessControl
-        - Guild
+        - AudioChat
+        - AudioChatMetadata
       abis:
         - name: RallyContract
           file: ./abis/RallyContract.json
       eventHandlers:
         - event: handleNewAudioChat(bytes32,uint256,uint256,string,uint8,bool,address)
-          handler: handlehandleNewAudioChat
+          handler: handleNewAudioChatIndexed
         - event: handleAudioChatUpdated(bytes32,uint256,uint256,string,uint8,bool)
-          handler: handleAudioChatUpdated
+          handler: handleAudioChatUpdatedIndexed
         - event: handleAudioChatChangedState(bytes32,uint8)
-          handler: handleAudioChatChangedState
+          handler: handleAudioChatChangedStateIndexed
         - event: handleAudioChatDeleted(bytes32)
-          handler: handleAudioChatDeleted
+          handler: handleAudioChatDeletedIndexed
       file: ./src/rally-contract.ts
+templates:
+  - name: AudioChatMetadataTemplate
+    kind: file/ipfs
+    mapping:
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      file: ./src/rally-contract.ts
+      handler: handleMetadata
+      entities:
+        - AudioChat
+        - AudioChatMetadata
+      abis:
+        - name: RallyContract
+          file: ./abis/RallyContract.json
+    network: mumbai
+features:
+  - ipfsOnEthereumContracts

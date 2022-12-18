@@ -1,48 +1,48 @@
 specVersion: 0.0.5
 schema:
   file: schema.graphql
-features:
-  - ipfsOnEthereumContracts
 dataSources:
   - kind: ethereum
     name: RallyContract
     network: mumbai
     source:
-      address: "0x8eb8a8f01Aa91500aA76D2283D8Ea32C169bcc71"
+      address: "0x479Dc3342fcb1785F2c8EDE3A5f0bfe62f26251c"
       abi: RallyContract
-      startBlock: 29639920
+      startBlock: 29641977
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
       language: wasm/assemblyscript
       entities:
-        - AudioChats
-        - AccessControl
-        - Guild
+        - AudioChat
+        - AudioChatMetadata
       abis:
         - name: RallyContract
           file: RallyContract/abis/RallyContract.json
       eventHandlers:
         - event: handleNewAudioChat(bytes32,uint256,uint256,string,uint8,bool,address)
-          handler: handlehandleNewAudioChat
+          handler: handleNewAudioChatIndexed
         - event: handleAudioChatUpdated(bytes32,uint256,uint256,string,uint8,bool)
-          handler: handleAudioChatUpdated
+          handler: handleAudioChatUpdatedIndexed
         - event: handleAudioChatChangedState(bytes32,uint8)
-          handler: handleAudioChatChangedState
+          handler: handleAudioChatChangedStateIndexed
         - event: handleAudioChatDeleted(bytes32)
-          handler: handleAudioChatDelete
-
+          handler: handleAudioChatDeletedIndexed
       file: RallyContract/RallyContract.wasm
 templates:
-  - name: AudioChatMetadata
+  - name: AudioChatMetadataTemplate
     kind: file/ipfs
     mapping:
       apiVersion: 0.0.7
       language: wasm/assemblyscript
-      file: ./src/mapping.ts
+      file: RallyContract/RallyContract.wasm
       handler: handleMetadata
       entities:
+        - AudioChat
         - AudioChatMetadata
       abis:
         - name: RallyContract
-          file: RallyContract/abis/RallyContract.json
+          file: AudioChatMetadataTemplate/abis/RallyContract.json
+    network: mumbai
+features:
+  - ipfsOnEthereumContracts

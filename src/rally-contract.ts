@@ -1,4 +1,4 @@
-import { ipfs, json, JSONValue, Value, store, Bytes} from "@graphprotocol/graph-ts";
+import { ipfs, json, JSONValue, Value, store, Bytes, dataSource, DataSourceContext, log} from "@graphprotocol/graph-ts";
 import {
   handleNewAudioChat as handleNewAudioChatEvent,
   handleAudioChatUpdated as handleAudioChatUpdated,
@@ -11,6 +11,8 @@ import {
   AudioChatMetadata
 } from "../generated/schema"
 import { integer } from "@protofire/subgraph-toolkit";
+import { AudioChatMetadataTemplate } from '../generated/templates';
+
 
 
 function processItem(value: JSONValue, userData: Value): void {
@@ -29,15 +31,13 @@ function processItem(value: JSONValue, userData: Value): void {
   let will_be_recorded = val.get("will_be_recorded")
   let is_gated = val.get("is_gated")
   let access_control = val.get("access_control")
-  if (!val) {
-    return
-  }
+  
  // let ourObj = ipfs.map('Qm...', 'processItem', Value.fromString(event.params.cid_metadata.toString()), ['json'])
 
 }
 
 
-export function handlehandleNewAudioChat(event: handleNewAudioChatEvent): void {
+export function handleNewAudioChatIndexed(event: handleNewAudioChatEvent): void {
   let loadAudioChat = AudioChat.load(event.params.audio_event_id.toHex());
   if (loadAudioChat == null){
     if(event.params.is_indexed){
@@ -48,18 +48,20 @@ export function handlehandleNewAudioChat(event: handleNewAudioChatEvent): void {
     newAudioChat.state = event.params.current_state
     newAudioChat.is_indexed = event.params.is_indexed
     newAudioChat.creator = event.params.creator
-    handleMetadata(newAudioChat.cid_metadata , event.params.audio_event_id)
+    log.info("My Id" ,[event.params.audio_event_id.toHex()])
+    let metadata  = ipfs.cat(`${event.params.cid_metadata}/data.json`)
+    newAudioChat.metadata = metadata!.toString()
     newAudioChat.save();      
 
     }
     }
-    
-
   }
 
- function handleMetadata(m: string, id: Bytes){
-  let newMetadata = new AudioChatMetadata(id.toHex());
+export function handleMetadata(m: string): void {
+  log.info(">>>>>>>>>" , [m])
   let metadata = ipfs.cat(m + "/data.json");
+  let newMetadata = new AudioChatMetadata("m");
+  
     if (metadata) {
       const value = json.fromBytes(metadata).toObject();
       if (value){
@@ -139,12 +141,12 @@ export function handlehandleNewAudioChat(event: handleNewAudioChatEvent): void {
         else {
           newMetadata.max_attendees = integer.fromNumber(100);
         }
-        
+        newMetadata.save();
         }
       }
  }
 
-  export function handleEventUpdate(event: handleAudioChatUpdated): void {
+  export function handleAudioChatUpdatedIndexed(event: handleAudioChatUpdated): void {
       let id = event.params.audio_event_id;
       let loaded = AudioChat.load(id.toHex());
       if (loaded){
@@ -170,7 +172,7 @@ export function handlehandleNewAudioChat(event: handleNewAudioChatEvent): void {
   } 
 }
 
-export function handleAudioChatChangedState(event: handleAudioChatChangedStates): void {
+export function handleAudioChatChangedStateIndexed(event: handleAudioChatChangedStates): void {
   let id = event.params.audio_event_id;
   let loaded = AudioChat.load(id.toHex());
   if (loaded){
@@ -185,7 +187,7 @@ export function handleAudioChatChangedState(event: handleAudioChatChangedStates)
 
 }
 
-export function handleEventDeleted(event: handleAudioChatDeleted): void{
+export function handleAudioChatDeletedIndexed(event: handleAudioChatDeleted): void{
     let id = event.params.audio_event_id.toHex();
     store.remove('AudioChat', id);
 }
