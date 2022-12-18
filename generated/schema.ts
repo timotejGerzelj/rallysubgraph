@@ -104,8 +104,25 @@ export class AudioChat extends Entity {
     }
   }
 
-  get metadata(): string | null {
-    let value = this.get("metadata");
+  get tags(): Array<string> | null {
+    let value = this.get("tags");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toStringArray();
+    }
+  }
+
+  set tags(value: Array<string> | null) {
+    if (!value) {
+      this.unset("tags");
+    } else {
+      this.set("tags", Value.fromStringArray(<Array<string>>value));
+    }
+  }
+
+  get name(): string | null {
+    let value = this.get("name");
     if (!value || value.kind == ValueKind.NULL) {
       return null;
     } else {
@@ -113,11 +130,141 @@ export class AudioChat extends Entity {
     }
   }
 
-  set metadata(value: string | null) {
+  set name(value: string | null) {
     if (!value) {
-      this.unset("metadata");
+      this.unset("name");
     } else {
-      this.set("metadata", Value.fromString(<string>value));
+      this.set("name", Value.fromString(<string>value));
+    }
+  }
+
+  get description(): string | null {
+    let value = this.get("description");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set description(value: string | null) {
+    if (!value) {
+      this.unset("description");
+    } else {
+      this.set("description", Value.fromString(<string>value));
+    }
+  }
+
+  get image(): string | null {
+    let value = this.get("image");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set image(value: string | null) {
+    if (!value) {
+      this.unset("image");
+    } else {
+      this.set("image", Value.fromString(<string>value));
+    }
+  }
+
+  get has_cohosts(): boolean {
+    let value = this.get("has_cohosts");
+    return value!.toBoolean();
+  }
+
+  set has_cohosts(value: boolean) {
+    this.set("has_cohosts", Value.fromBoolean(value));
+  }
+
+  get category(): string | null {
+    let value = this.get("category");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set category(value: string | null) {
+    if (!value) {
+      this.unset("category");
+    } else {
+      this.set("category", Value.fromString(<string>value));
+    }
+  }
+
+  get is_nsfw(): boolean {
+    let value = this.get("is_nsfw");
+    return value!.toBoolean();
+  }
+
+  set is_nsfw(value: boolean) {
+    this.set("is_nsfw", Value.fromBoolean(value));
+  }
+
+  get will_be_recorded(): boolean {
+    let value = this.get("will_be_recorded");
+    return value!.toBoolean();
+  }
+
+  set will_be_recorded(value: boolean) {
+    this.set("will_be_recorded", Value.fromBoolean(value));
+  }
+
+  get is_gated(): boolean {
+    let value = this.get("is_gated");
+    return value!.toBoolean();
+  }
+
+  set is_gated(value: boolean) {
+    this.set("is_gated", Value.fromBoolean(value));
+  }
+
+  get max_attendees(): BigInt | null {
+    let value = this.get("max_attendees");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set max_attendees(value: BigInt | null) {
+    if (!value) {
+      this.unset("max_attendees");
+    } else {
+      this.set("max_attendees", Value.fromBigInt(<BigInt>value));
+    }
+  }
+
+  get clips_allowed(): boolean {
+    let value = this.get("clips_allowed");
+    return value!.toBoolean();
+  }
+
+  set clips_allowed(value: boolean) {
+    this.set("clips_allowed", Value.fromBoolean(value));
+  }
+
+  get language(): string | null {
+    let value = this.get("language");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set language(value: string | null) {
+    if (!value) {
+      this.unset("language");
+    } else {
+      this.set("language", Value.fromString(<string>value));
     }
   }
 }

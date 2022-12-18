@@ -6,7 +6,18 @@ type AudioChat @entity(immutable: false) {
   state: Int!
   is_indexed: Boolean!
   creator: Bytes
-  metadata: String
+  tags: [String!]
+  name: String
+  description: String
+image: String
+has_cohosts: Boolean
+category: String
+is_nsfw: Boolean
+will_be_recorded: Boolean
+is_gated: Boolean
+max_attendees: BigInt
+clips_allowed: Boolean
+language: String
 
 }
 

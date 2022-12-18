@@ -50,7 +50,104 @@ export function handleNewAudioChatIndexed(event: handleNewAudioChatEvent): void 
     newAudioChat.creator = event.params.creator
     log.info("My Id" ,[event.params.audio_event_id.toHex()])
     let metadata  = ipfs.cat(`${event.params.cid_metadata}/data.json`)
-    newAudioChat.metadata = metadata!.toString()
+  
+    if (metadata) {
+      const value = json.fromBytes(metadata).toObject();
+      if (value){
+         let name = value.get("name");
+         let description = value.get("description")
+         let tags = value.get("tags")
+         let image = value.get("image")
+         let has_cohosts = value.get("has_cohosts")
+         //let cohosts_list = value.get("cohosts_list")
+         //let guests_list = value.get("guests_list")
+        let category = value.get("category")
+        let is_nsfw = value.get("is_nsfw")
+        let will_be_recorded = value.get("will_be_recorded")
+        let is_gated = value.get("is_gated")
+        let max_attendees = value.get("max_attendees");
+        let clips_allowed = value.get("clips_allowed");
+        let language = value.get("language")
+        if (name) {
+          newAudioChat.name = name.toString();
+        }
+        else {
+          newAudioChat.name = "";
+        }
+        if(description){
+          newAudioChat.description = description.toString();
+        }
+        else {
+          newAudioChat.description = "";
+        }
+        if (tags){
+          let stringArray: JSONValue[] = tags.toArray() as Array<JSONValue>;
+          newAudioChat.tags = stringArray.map<string>((val: JSONValue): string => { return val.toString() }); 
+        }
+        else {
+          newAudioChat.tags = [];
+        }
+        if (image){
+          newAudioChat.image = image.toString();
+        }
+        else {
+          newAudioChat.image = "";
+        }
+        if (has_cohosts){
+          newAudioChat.has_cohosts = has_cohosts.toBool();
+
+        }
+        else {
+          newAudioChat.has_cohosts = false;
+        }
+        if (category) {
+          newAudioChat.category = category.toString()
+        }
+        else {
+          newAudioChat.category = "";
+        }
+        if (is_nsfw){
+          newAudioChat.is_nsfw = is_nsfw.toBool();
+        }
+        else {
+          newAudioChat.is_nsfw = false;
+        }
+        if (will_be_recorded){
+          newAudioChat.will_be_recorded = will_be_recorded.toBool()
+          
+        }
+        else {
+          newAudioChat.will_be_recorded = false
+        }
+        if (is_gated){
+          newAudioChat.is_gated = is_gated.toBool()
+        }
+        else {
+          newAudioChat.is_gated = false;
+        }
+        if (max_attendees){
+          newAudioChat.max_attendees = max_attendees.toBigInt();
+          
+        }
+        else {
+          newAudioChat.max_attendees = integer.fromNumber(100);
+        }
+        if (clips_allowed){
+          newAudioChat.clips_allowed = clips_allowed.toBool();
+        }
+        else {
+          newAudioChat.clips_allowed = false;
+        }
+        if (language){
+          newAudioChat.language = language.toString();
+        }
+        else {
+          newAudioChat.language = "en"
+        }
+
+
+        }
+      }
     newAudioChat.save();      
 
     }
