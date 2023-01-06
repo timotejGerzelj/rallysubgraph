@@ -6,7 +6,7 @@ type AudioChat @entity(immutable: false) {
   state: Int!
   is_indexed: Boolean!
   creator: Bytes
-  metadata: String
+
 
 }
 

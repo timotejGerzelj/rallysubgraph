@@ -8,7 +8,7 @@ dataSources:
     source:
       address: "0x479Dc3342fcb1785F2c8EDE3A5f0bfe62f26251c"
       abi: RallyContract
-      startBlock: 29641977 #29085137
+      startBlock: 29641977
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7

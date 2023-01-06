@@ -6,18 +6,7 @@ type AudioChat @entity(immutable: false) {
   state: Int!
   is_indexed: Boolean!
   creator: Bytes
-  tags: [String!]
-  name: String
-  description: String
-image: String
-has_cohosts: Boolean
-category: String
-is_nsfw: Boolean
-will_be_recorded: Boolean
-is_gated: Boolean
-max_attendees: BigInt
-clips_allowed: Boolean
-language: String
+
 
 }
 
@@ -25,12 +14,12 @@ type AudioChatMetadata @entity(immutable: false) {
   id: ID!
   name: String!
   description: String!
-tags: [String!]
-image: String!
-has_cohosts: Boolean!
-category: String
-is_nsfw: Boolean!
-will_be_recorded: Boolean!
-is_gated: Boolean!
-max_attendees: BigInt!
+  tags: [String!]
+  image: String!
+  has_cohosts: Boolean!
+  category: String
+  is_nsfw: Boolean!
+  will_be_recorded: Boolean!
+  is_gated: Boolean!
+  max_attendees: BigInt!
 }
