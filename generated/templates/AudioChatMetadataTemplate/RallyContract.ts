@@ -86,6 +86,14 @@ export class handleAudioChatUpdated__Params {
   get is_indexed(): boolean {
     return this._event.parameters[5].value.toBoolean();
   }
+
+  get recording_arweave_transaction_id(): string {
+    return this._event.parameters[6].value.toString();
+  }
+
+  get lens_publication_id(): string {
+    return this._event.parameters[7].value.toString();
+  }
 }
 
 export class handleNewAudioChat extends ethereum.Event {
@@ -184,6 +192,56 @@ export class RallyContract__getAllAudioChatsResultValue0Struct extends ethereum.
   get exists(): boolean {
     return this[7].toBoolean();
   }
+
+  get recording_arweave_transaction_id(): string {
+    return this[8].toString();
+  }
+
+  get lens_publication_id(): string {
+    return this[9].toString();
+  }
+}
+
+export class RallyContract__getAllRecordingsByWalletAddressResultValue0Struct extends ethereum.Tuple {
+  get audio_event_id(): Bytes {
+    return this[0].toBytes();
+  }
+
+  get created_at(): BigInt {
+    return this[1].toBigInt();
+  }
+
+  get cid_metadata(): string {
+    return this[2].toString();
+  }
+
+  get state(): i32 {
+    return this[3].toI32();
+  }
+
+  get is_indexed(): boolean {
+    return this[4].toBoolean();
+  }
+
+  get creator(): Address {
+    return this[5].toAddress();
+  }
+
+  get start_at(): BigInt {
+    return this[6].toBigInt();
+  }
+
+  get exists(): boolean {
+    return this[7].toBoolean();
+  }
+
+  get recording_arweave_transaction_id(): string {
+    return this[8].toString();
+  }
+
+  get lens_publication_id(): string {
+    return this[9].toString();
+  }
 }
 
 export class RallyContract__getAudioChatByIdResult {
@@ -194,6 +252,8 @@ export class RallyContract__getAudioChatByIdResult {
   value4: i32;
   value5: Address;
   value6: boolean;
+  value7: string;
+  value8: string;
 
   constructor(
     value0: Bytes,
@@ -202,7 +262,9 @@ export class RallyContract__getAudioChatByIdResult {
     value3: string,
     value4: i32,
     value5: Address,
-    value6: boolean
+    value6: boolean,
+    value7: string,
+    value8: string
   ) {
     this.value0 = value0;
     this.value1 = value1;
@@ -211,6 +273,8 @@ export class RallyContract__getAudioChatByIdResult {
     this.value4 = value4;
     this.value5 = value5;
     this.value6 = value6;
+    this.value7 = value7;
+    this.value8 = value8;
   }
 
   toMap(): TypedMap<string, ethereum.Value> {
@@ -225,6 +289,8 @@ export class RallyContract__getAudioChatByIdResult {
     );
     map.set("value5", ethereum.Value.fromAddress(this.value5));
     map.set("value6", ethereum.Value.fromBoolean(this.value6));
+    map.set("value7", ethereum.Value.fromString(this.value7));
+    map.set("value8", ethereum.Value.fromString(this.value8));
     return map;
   }
 
@@ -254,6 +320,14 @@ export class RallyContract__getAudioChatByIdResult {
 
   getIs_indexed(): boolean {
     return this.value6;
+  }
+
+  getRecording_arweave_transaction_id(): string {
+    return this.value7;
+  }
+
+  getLens_publication_id(): string {
+    return this.value8;
   }
 }
 
@@ -289,6 +363,14 @@ export class RallyContract__getAudioChatsByAddressResultValue0Struct extends eth
   get exists(): boolean {
     return this[7].toBoolean();
   }
+
+  get recording_arweave_transaction_id(): string {
+    return this[8].toString();
+  }
+
+  get lens_publication_id(): string {
+    return this[9].toString();
+  }
 }
 
 export class RallyContract__getAudioChatsByStateResultValue0Struct extends ethereum.Tuple {
@@ -323,6 +405,14 @@ export class RallyContract__getAudioChatsByStateResultValue0Struct extends ether
   get exists(): boolean {
     return this[7].toBoolean();
   }
+
+  get recording_arweave_transaction_id(): string {
+    return this[8].toString();
+  }
+
+  get lens_publication_id(): string {
+    return this[9].toString();
+  }
 }
 
 export class RallyContract__id_to_audio_chatResult {
@@ -334,6 +424,8 @@ export class RallyContract__id_to_audio_chatResult {
   value5: Address;
   value6: BigInt;
   value7: boolean;
+  value8: string;
+  value9: string;
 
   constructor(
     value0: Bytes,
@@ -343,7 +435,9 @@ export class RallyContract__id_to_audio_chatResult {
     value4: boolean,
     value5: Address,
     value6: BigInt,
-    value7: boolean
+    value7: boolean,
+    value8: string,
+    value9: string
   ) {
     this.value0 = value0;
     this.value1 = value1;
@@ -353,6 +447,8 @@ export class RallyContract__id_to_audio_chatResult {
     this.value5 = value5;
     this.value6 = value6;
     this.value7 = value7;
+    this.value8 = value8;
+    this.value9 = value9;
   }
 
   toMap(): TypedMap<string, ethereum.Value> {
@@ -368,6 +464,8 @@ export class RallyContract__id_to_audio_chatResult {
     map.set("value5", ethereum.Value.fromAddress(this.value5));
     map.set("value6", ethereum.Value.fromUnsignedBigInt(this.value6));
     map.set("value7", ethereum.Value.fromBoolean(this.value7));
+    map.set("value8", ethereum.Value.fromString(this.value8));
+    map.set("value9", ethereum.Value.fromString(this.value9));
     return map;
   }
 
@@ -401,6 +499,14 @@ export class RallyContract__id_to_audio_chatResult {
 
   getExists(): boolean {
     return this.value7;
+  }
+
+  getRecording_arweave_transaction_id(): string {
+    return this.value8;
+  }
+
+  getLens_publication_id(): string {
+    return this.value9;
   }
 }
 
@@ -444,7 +550,7 @@ export class RallyContract extends ethereum.SmartContract {
   getAllAudioChats(): Array<RallyContract__getAllAudioChatsResultValue0Struct> {
     let result = super.call(
       "getAllAudioChats",
-      "getAllAudioChats():((bytes32,uint256,string,uint8,bool,address,uint256,bool)[])",
+      "getAllAudioChats():((bytes32,uint256,string,uint8,bool,address,uint256,bool,string,string)[])",
       []
     );
 
@@ -458,7 +564,7 @@ export class RallyContract extends ethereum.SmartContract {
   > {
     let result = super.tryCall(
       "getAllAudioChats",
-      "getAllAudioChats():((bytes32,uint256,string,uint8,bool,address,uint256,bool)[])",
+      "getAllAudioChats():((bytes32,uint256,string,uint8,bool,address,uint256,bool,string,string)[])",
       []
     );
     if (result.reverted) {
@@ -493,11 +599,46 @@ export class RallyContract extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toBytesArray());
   }
 
-  getAudioChatById(id: Bytes): RallyContract__getAudioChatByIdResult {
+  getAllRecordingsByWalletAddress(
+    creator: Address
+  ): Array<RallyContract__getAllRecordingsByWalletAddressResultValue0Struct> {
+    let result = super.call(
+      "getAllRecordingsByWalletAddress",
+      "getAllRecordingsByWalletAddress(address):((bytes32,uint256,string,uint8,bool,address,uint256,bool,string,string)[])",
+      [ethereum.Value.fromAddress(creator)]
+    );
+
+    return result[0].toTupleArray<
+      RallyContract__getAllRecordingsByWalletAddressResultValue0Struct
+    >();
+  }
+
+  try_getAllRecordingsByWalletAddress(
+    creator: Address
+  ): ethereum.CallResult<
+    Array<RallyContract__getAllRecordingsByWalletAddressResultValue0Struct>
+  > {
+    let result = super.tryCall(
+      "getAllRecordingsByWalletAddress",
+      "getAllRecordingsByWalletAddress(address):((bytes32,uint256,string,uint8,bool,address,uint256,bool,string,string)[])",
+      [ethereum.Value.fromAddress(creator)]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(
+      value[0].toTupleArray<
+        RallyContract__getAllRecordingsByWalletAddressResultValue0Struct
+      >()
+    );
+  }
+
+  getAudioChatById(audio_id: Bytes): RallyContract__getAudioChatByIdResult {
     let result = super.call(
       "getAudioChatById",
-      "getAudioChatById(bytes32):(bytes32,uint256,uint256,string,uint8,address,bool)",
-      [ethereum.Value.fromFixedBytes(id)]
+      "getAudioChatById(bytes32):(bytes32,uint256,uint256,string,uint8,address,bool,string,string)",
+      [ethereum.Value.fromFixedBytes(audio_id)]
     );
 
     return new RallyContract__getAudioChatByIdResult(
@@ -507,17 +648,19 @@ export class RallyContract extends ethereum.SmartContract {
       result[3].toString(),
       result[4].toI32(),
       result[5].toAddress(),
-      result[6].toBoolean()
+      result[6].toBoolean(),
+      result[7].toString(),
+      result[8].toString()
     );
   }
 
   try_getAudioChatById(
-    id: Bytes
+    audio_id: Bytes
   ): ethereum.CallResult<RallyContract__getAudioChatByIdResult> {
     let result = super.tryCall(
       "getAudioChatById",
-      "getAudioChatById(bytes32):(bytes32,uint256,uint256,string,uint8,address,bool)",
-      [ethereum.Value.fromFixedBytes(id)]
+      "getAudioChatById(bytes32):(bytes32,uint256,uint256,string,uint8,address,bool,string,string)",
+      [ethereum.Value.fromFixedBytes(audio_id)]
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -531,7 +674,9 @@ export class RallyContract extends ethereum.SmartContract {
         value[3].toString(),
         value[4].toI32(),
         value[5].toAddress(),
-        value[6].toBoolean()
+        value[6].toBoolean(),
+        value[7].toString(),
+        value[8].toString()
       )
     );
   }
@@ -541,7 +686,7 @@ export class RallyContract extends ethereum.SmartContract {
   ): Array<RallyContract__getAudioChatsByAddressResultValue0Struct> {
     let result = super.call(
       "getAudioChatsByAddress",
-      "getAudioChatsByAddress(address):((bytes32,uint256,string,uint8,bool,address,uint256,bool)[])",
+      "getAudioChatsByAddress(address):((bytes32,uint256,string,uint8,bool,address,uint256,bool,string,string)[])",
       [ethereum.Value.fromAddress(creator)]
     );
 
@@ -557,7 +702,7 @@ export class RallyContract extends ethereum.SmartContract {
   > {
     let result = super.tryCall(
       "getAudioChatsByAddress",
-      "getAudioChatsByAddress(address):((bytes32,uint256,string,uint8,bool,address,uint256,bool)[])",
+      "getAudioChatsByAddress(address):((bytes32,uint256,string,uint8,bool,address,uint256,bool,string,string)[])",
       [ethereum.Value.fromAddress(creator)]
     );
     if (result.reverted) {
@@ -576,7 +721,7 @@ export class RallyContract extends ethereum.SmartContract {
   ): Array<RallyContract__getAudioChatsByStateResultValue0Struct> {
     let result = super.call(
       "getAudioChatsByState",
-      "getAudioChatsByState(uint8[]):((bytes32,uint256,string,uint8,bool,address,uint256,bool)[])",
+      "getAudioChatsByState(uint8[]):((bytes32,uint256,string,uint8,bool,address,uint256,bool,string,string)[])",
       [ethereum.Value.fromI32Array(options)]
     );
 
@@ -592,7 +737,7 @@ export class RallyContract extends ethereum.SmartContract {
   > {
     let result = super.tryCall(
       "getAudioChatsByState",
-      "getAudioChatsByState(uint8[]):((bytes32,uint256,string,uint8,bool,address,uint256,bool)[])",
+      "getAudioChatsByState(uint8[]):((bytes32,uint256,string,uint8,bool,address,uint256,bool,string,string)[])",
       [ethereum.Value.fromI32Array(options)]
     );
     if (result.reverted) {
@@ -609,7 +754,7 @@ export class RallyContract extends ethereum.SmartContract {
   id_to_audio_chat(param0: Bytes): RallyContract__id_to_audio_chatResult {
     let result = super.call(
       "id_to_audio_chat",
-      "id_to_audio_chat(bytes32):(bytes32,uint256,string,uint8,bool,address,uint256,bool)",
+      "id_to_audio_chat(bytes32):(bytes32,uint256,string,uint8,bool,address,uint256,bool,string,string)",
       [ethereum.Value.fromFixedBytes(param0)]
     );
 
@@ -621,7 +766,9 @@ export class RallyContract extends ethereum.SmartContract {
       result[4].toBoolean(),
       result[5].toAddress(),
       result[6].toBigInt(),
-      result[7].toBoolean()
+      result[7].toBoolean(),
+      result[8].toString(),
+      result[9].toString()
     );
   }
 
@@ -630,7 +777,7 @@ export class RallyContract extends ethereum.SmartContract {
   ): ethereum.CallResult<RallyContract__id_to_audio_chatResult> {
     let result = super.tryCall(
       "id_to_audio_chat",
-      "id_to_audio_chat(bytes32):(bytes32,uint256,string,uint8,bool,address,uint256,bool)",
+      "id_to_audio_chat(bytes32):(bytes32,uint256,string,uint8,bool,address,uint256,bool,string,string)",
       [ethereum.Value.fromFixedBytes(param0)]
     );
     if (result.reverted) {
@@ -646,7 +793,9 @@ export class RallyContract extends ethereum.SmartContract {
         value[4].toBoolean(),
         value[5].toAddress(),
         value[6].toBigInt(),
-        value[7].toBoolean()
+        value[7].toBoolean(),
+        value[8].toString(),
+        value[9].toString()
       )
     );
   }
@@ -722,6 +871,14 @@ export class CreateNewAudioChatCall__Inputs {
   get is_indexed(): boolean {
     return this._call.inputValues[4].value.toBoolean();
   }
+
+  get published_recording_access_control_arweave_transaction_id(): string {
+    return this._call.inputValues[5].value.toString();
+  }
+
+  get lens_publication_id(): string {
+    return this._call.inputValues[6].value.toString();
+  }
 }
 
 export class CreateNewAudioChatCall__Outputs {
@@ -793,6 +950,14 @@ export class UpdateAudioChatCall__Inputs {
 
   get is_indexed(): boolean {
     return this._call.inputValues[3].value.toBoolean();
+  }
+
+  get recording_arweave_transaction_id(): string {
+    return this._call.inputValues[4].value.toString();
+  }
+
+  get lens_publication_id(): string {
+    return this._call.inputValues[5].value.toString();
   }
 }
 

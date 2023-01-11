@@ -6,20 +6,21 @@ type AudioChat @entity(immutable: false) {
   state: Int!
   is_indexed: Boolean!
   creator: Bytes
-
-
+  recording_arweave_transaction_id: String
+  lens_publication_id: String
+  metadata: metadataAudioChat
 }
 
-type AudioChatMetadata @entity(immutable: false) {
+type metadataAudioChat @entity(immutable: false) {
   id: ID!
   name: String!
   description: String!
-tags: [String!]
-image: String!
-has_cohosts: Boolean!
-category: String
-is_nsfw: Boolean!
-will_be_recorded: Boolean!
-is_gated: Boolean!
-max_attendees: BigInt!
+  tags: [String!]
+  image: String!
+  has_cohosts: Boolean!
+  category: String
+  is_nsfw: Boolean!
+  will_be_recorded: Boolean!
+  is_gated: Boolean!
+  max_attendees: BigInt!
 }

@@ -69,6 +69,18 @@
         "internalType": "bool",
         "name": "is_indexed",
         "type": "bool"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "recording_arweave_transaction_id",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "lens_publication_id",
+        "type": "string"
       }
     ],
     "name": "handleAudioChatUpdated",
@@ -210,6 +222,16 @@
         "internalType": "bool",
         "name": "is_indexed",
         "type": "bool"
+      },
+      {
+        "internalType": "string",
+        "name": "published_recording_access_control_arweave_transaction_id",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "lens_publication_id",
+        "type": "string"
       }
     ],
     "name": "createNewAudioChat",
@@ -275,6 +297,16 @@
             "internalType": "bool",
             "name": "exists",
             "type": "bool"
+          },
+          {
+            "internalType": "string",
+            "name": "recording_arweave_transaction_id",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "lens_publication_id",
+            "type": "string"
           }
         ],
         "internalType": "struct AudioChat.CreateAudioChat[]",
@@ -301,8 +333,79 @@
   {
     "inputs": [
       {
+        "internalType": "address",
+        "name": "creator",
+        "type": "address"
+      }
+    ],
+    "name": "getAllRecordingsByWalletAddress",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "bytes32",
+            "name": "audio_event_id",
+            "type": "bytes32"
+          },
+          {
+            "internalType": "uint256",
+            "name": "created_at",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "cid_metadata",
+            "type": "string"
+          },
+          {
+            "internalType": "enum AudioChat.stateOptions",
+            "name": "state",
+            "type": "uint8"
+          },
+          {
+            "internalType": "bool",
+            "name": "is_indexed",
+            "type": "bool"
+          },
+          {
+            "internalType": "address",
+            "name": "creator",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "start_at",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "exists",
+            "type": "bool"
+          },
+          {
+            "internalType": "string",
+            "name": "recording_arweave_transaction_id",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "lens_publication_id",
+            "type": "string"
+          }
+        ],
+        "internalType": "struct AudioChat.CreateAudioChat[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "bytes32",
-        "name": "id",
+        "name": "audio_id",
         "type": "bytes32"
       }
     ],
@@ -342,6 +445,16 @@
         "internalType": "bool",
         "name": "is_indexed",
         "type": "bool"
+      },
+      {
+        "internalType": "string",
+        "name": "recording_arweave_transaction_id",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "lens_publication_id",
+        "type": "string"
       }
     ],
     "stateMutability": "view",
@@ -398,6 +511,16 @@
             "internalType": "bool",
             "name": "exists",
             "type": "bool"
+          },
+          {
+            "internalType": "string",
+            "name": "recording_arweave_transaction_id",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "lens_publication_id",
+            "type": "string"
           }
         ],
         "internalType": "struct AudioChat.CreateAudioChat[]",
@@ -459,6 +582,16 @@
             "internalType": "bool",
             "name": "exists",
             "type": "bool"
+          },
+          {
+            "internalType": "string",
+            "name": "recording_arweave_transaction_id",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "lens_publication_id",
+            "type": "string"
           }
         ],
         "internalType": "struct AudioChat.CreateAudioChat[]",
@@ -518,6 +651,16 @@
         "internalType": "bool",
         "name": "exists",
         "type": "bool"
+      },
+      {
+        "internalType": "string",
+        "name": "recording_arweave_transaction_id",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "lens_publication_id",
+        "type": "string"
       }
     ],
     "stateMutability": "view",
@@ -544,6 +687,16 @@
         "internalType": "bool",
         "name": "is_indexed",
         "type": "bool"
+      },
+      {
+        "internalType": "string",
+        "name": "recording_arweave_transaction_id",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "lens_publication_id",
+        "type": "string"
       }
     ],
     "name": "updateAudioChat",
